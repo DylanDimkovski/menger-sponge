@@ -1,2 +1,1 @@
-D:\Uni Work\RealTimeGraphics\A1_SURNAME_FIRSTNAME\Build\Debug - x64\A1.exe
 D:\Uni Work\RealTimeGraphics\A1\menger-sponge\Build\Debug - x64\A1.exe

@@ -1,11 +1,4 @@
-﻿  glad.c
-  Camera.cpp
-  Cube.cpp
-D:\Uni Work\RealTimeGraphics\A1\menger-sponge\Src\Cube.cpp(74,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  RTRApp.cpp
-  main.cpp
+﻿  main.cpp
 D:\Uni Work\RealTimeGraphics\A1\menger-sponge\Include\gltext\gltext.h(300,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  SceneOne.cpp
-  Generating Code...
   RTRApp.vcxproj -> D:\Uni Work\RealTimeGraphics\A1\menger-sponge\Build\Debug - x64\A1.exe
   0 File(s) copied

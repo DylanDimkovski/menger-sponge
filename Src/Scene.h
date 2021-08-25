@@ -18,6 +18,6 @@ public:
     virtual void done() = 0;
 
 protected:
-    Camera* camera = new Camera();
+    Camera camera;
     Cube cube;
 };

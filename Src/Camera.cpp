@@ -4,8 +4,8 @@
 
 void Camera::init()
 {
-	position = glm::vec3(10.0f, 2.0f, 15.0f);
-	front = glm::vec3(-10.0f, -2.0f, -15.0f);
+	position = glm::vec3(0.0f, 0.0f, 5.0f);
+	front = glm::vec3(0.0f, 0.0f, 0.0f);
 	up = glm::vec3(0.0f, 1.0f, 0.0f);
 	updateView();
 }

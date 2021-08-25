@@ -12,7 +12,7 @@ void Cube::init(GLfloat depth, GLfloat e)
 
 void Cube::draw()
 {
-	std::cout << vertex.size() << ", " << index.size() << std::endl;
+	//std::cout << vertex.size() << ", " << index.size() << std::endl;
 
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0f, 0.0f, 0.0f);

@@ -31,6 +31,7 @@
     <ClInclude Include="Src\Cube.h" />
     <ClInclude Include="Src\RTRApp.h" />
     <ClInclude Include="Src\Scene.h" />
+    <ClInclude Include="Src\SceneOne.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
