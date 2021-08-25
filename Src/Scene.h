@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "Cube.h"
 #include <glm/ext.hpp>
+#include <glad/glad.h>
 
 class Scene
 {
@@ -16,8 +17,4 @@ public:
     virtual void init() = 0;
     virtual void draw() = 0;
     virtual void done() = 0;
-
-protected:
-    Camera camera;
-    Cube cube;
 };

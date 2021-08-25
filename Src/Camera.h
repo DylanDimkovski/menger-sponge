@@ -7,7 +7,7 @@
 // RMIT University, COSC1226: Real-Time Rendering and 3D Game Programming
 //-----------------------------------------------------------------------------
 #pragma once
-#include <glm/glm.hpp>
+#include <glm/ext.hpp>
 
 class Camera
 {

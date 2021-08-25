@@ -1,11 +1,9 @@
-#include <glm/ext.hpp>
 #include "Camera.h"
-
 
 void Camera::init()
 {
-	position = glm::vec3(0.0f, 0.0f, 5.0f);
-	front = glm::vec3(0.0f, 0.0f, 0.0f);
+	position = glm::vec3(10.0f, 5.0f, 20.0f);
+	front = glm::vec3(-10.0f, -5.0f, -20.0f);
 	up = glm::vec3(0.0f, 1.0f, 0.0f);
 	updateView();
 }

@@ -1,9 +1,5 @@
 #include "Cube.h"
-#include <glad/glad.h>
-#include <glm/ext.hpp>
-#include <math.h>
 
-#include <iostream>
 void Cube::init(GLfloat depth, GLfloat e)
 {
 	count = 0.0f;
@@ -12,12 +8,10 @@ void Cube::init(GLfloat depth, GLfloat e)
 
 void Cube::draw()
 {
-	//std::cout << vertex.size() << ", " << index.size() << std::endl;
-
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0f, 0.0f, 0.0f);
 
-	for (size_t i = 0; i < vertex.size(); i += 3)
+	for (int i = 0; i < vertex.size(); i += 3)
 	{
 		glVertex3fv(glm::value_ptr(vertex.at(index.at(i))));
 		glVertex3fv(glm::value_ptr(vertex.at(index.at(i + 1))));

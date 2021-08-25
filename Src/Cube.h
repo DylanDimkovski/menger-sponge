@@ -10,6 +10,7 @@
 #include <vector>
 #include <glad/glad.h>
 #include <glm/ext.hpp>
+#include <math.h>
 
 class Cube
 {

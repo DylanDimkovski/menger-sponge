@@ -4,28 +4,26 @@ void SceneOne::init()
 {
     camera.init();
 
-    GLfloat depth = 3.0f;
+    GLfloat depth = 1.0f;
     cube.init(depth, 10.0f);
-
-    glm::mat4 projection = glm::perspective(glm::radians(60.0f), (2560.0f / 1440.0f), 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(60.0f), (2560.0f / 1440.0f), 0.01f, 50.0f);
 
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(glm::value_ptr(projection));
 
     glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_CULL_FACE);
-    //glCullFace(GL_BACK);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 }
 
 void SceneOne::draw()
 {
     camera.updateView();
-
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixf(glm::value_ptr(camera.view));
 
     //cube.draw();
-    glBegin(GL_POLYGON);                // Begin drawing the color cube with 6 quads
+    glBegin(GL_QUADS);  
     glColor3f(0.0f, 1.0f, 0.0f);     // Green
     glVertex3f(1.0f, 1.0f, -1.0f);
     glVertex3f(-1.0f, 1.0f, -1.0f);
