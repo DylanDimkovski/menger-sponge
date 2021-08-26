@@ -22,6 +22,8 @@
     <ClCompile Include="Include\glad\glad.c" />
     <ClCompile Include="Src\Camera.cpp" />
     <ClCompile Include="Src\Cube.cpp" />
+    <ClCompile Include="Src\Lighting.cpp" />
+    <ClCompile Include="Src\Material.cpp" />
     <ClCompile Include="Src\RTRApp.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\SceneOne.cpp" />
@@ -29,6 +31,8 @@
   <ItemGroup>
     <ClInclude Include="Src\Camera.h" />
     <ClInclude Include="Src\Cube.h" />
+    <ClInclude Include="Src\Lighting.h" />
+    <ClInclude Include="Src\Material.h" />
     <ClInclude Include="Src\RTRApp.h" />
     <ClInclude Include="Src\Scene.h" />
     <ClInclude Include="Src\SceneOne.h" />

@@ -6,16 +6,16 @@
 // RMIT University, COSC1226: Real-Time Rendering and 3D Game Programming
 //-----------------------------------------------------------------------------
 #include "RTRApp.h"
+#include "SceneOne.h"
 
 #define GLT_IMPLEMENTATION
 #include <gltext/gltext.h>
 
-#include "SceneOne.h"
 
 class AssignmentApp : public RTRApp
 {
 public:
-    AssignmentApp(const char* title, bool fullscreen = false, int width = 1024, int height = 768)
+    AssignmentApp(const char* title, bool fullscreen = false, int width = 2560, int height = 1440)
         : RTRApp(title, fullscreen, width, height) {}
     int Init();
     void Done();
@@ -24,6 +24,7 @@ public:
 private:
     bool m_QuitApp = false;
     Scene* scene = new SceneOne();
+
 
     void CheckInput(unsigned int td_milli);
     void UpdateState(unsigned int td_milli);
@@ -94,6 +95,12 @@ void AssignmentApp::CheckInput(unsigned int td_milli)
                     scene->cube->init();
                 }
             }
+            if (sym == SDLK_z) {
+                scene->depthtest = !scene->depthtest;
+            }
+            if (sym == SDLK_c) {
+                scene->backface = !scene->backface;
+            }
         }
     }
 
@@ -108,27 +115,49 @@ void AssignmentApp::UpdateState(unsigned int td_milli)
 // Render On-Screen Display
 void AssignmentApp::RenderOSD()
 {
-    GLTtext* hello_msg = gltCreateText();
-    gltSetText(hello_msg, "How bout now");
-
-    GLTtext* test = gltCreateText();
-    gltSetText(test, "Does this work");
-
+    GLTtext* text = gltCreateText();
     gltBeginDraw();
-     gltColor(0.0f, 1.0f, 0.0f, 1.0f);
-     gltDrawText2D(hello_msg, 10, 10, 2.0);
-     gltDrawText2D(test, 10, 55, 2.0);
-    gltEndDraw();
+    gltColor(0.0f, 1.0f, 0.0f, 1.0f);
 
-    gltDeleteText(hello_msg);
-    gltDeleteText(test);
+    gltSetText(text, ("Scene: " + scene->name).c_str());
+    gltDrawText2D(text, 10, 0, 2.0);
+
+    gltSetText(text, ("Display: " + std::to_string((float)m_WindowWidth) + 'x' + std::to_string(m_WindowHeight)).c_str());
+    gltDrawText2D(text, 10, 50, 1.8);
+
+    gltSetText(text, "FPS: 0");
+    gltDrawText2D(text, 10, 100, 2.0);
+
+    gltSetText(text, ("Subdivisions: " + std::to_string((int)scene->cube->depth)).c_str());
+    gltDrawText2D(text, 10, 150, 2.0);
+
+    gltSetText(text, ("Vertices: " + std::to_string(scene->cube->vertex.size())).c_str());
+    gltDrawText2D(text, 10, 200, 2.0);
+
+    gltSetText(text, ("Faces:" + std::to_string(pow(20,scene->cube->depth) * 6)).c_str());
+    gltDrawText2D(text, 10, 250, 2.0);
+
+    gltSetText(text, "Data:");
+    gltDrawText2D(text, 10, 300, 2.0);
+
+    gltSetText(text, "Lighting:");
+    gltDrawText2D(text, 10, 350, 2.0);
+
+    (scene->depthtest) ? gltSetText(text, "Depth Testing: On") : gltSetText(text, "Depth Testing: Off");
+    gltDrawText2D(text, 10, 400, 2.0);
+
+    (scene->backface) ? gltSetText(text, "Backface Culling: On") : gltSetText(text, "Backface Culling: Off");
+    gltDrawText2D(text, 10, 450, 2.0);
+
+    gltEndDraw();
+    gltDeleteText(text);
 
     glUseProgram(0);
 }
 
 void AssignmentApp::RenderFrame()
 {
-    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     scene->draw();
@@ -147,6 +176,7 @@ int AssignmentApp::Init()
     gltInit();
     glViewport(0, 0, m_WindowWidth, m_WindowHeight);
 
+    gltInit();
     scene->init((float) m_WindowWidth, (float) m_WindowHeight);
 
     return 0;

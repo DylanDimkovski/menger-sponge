@@ -8,8 +8,11 @@
 #pragma once
 #include "Camera.h"
 #include "Cube.h"
+#include "Lighting.h"
+#include "Material.h"
 #include <glm/ext.hpp>
 #include <glad/glad.h>
+#include <iostream>
 
 class Scene
 {
@@ -19,6 +22,8 @@ public:
     {
         camera = new Camera();
         cube = new Cube(1, 5);
+        lighting = new Lighting();
+        material = new Material();
     }
 
     ~Scene()
@@ -29,8 +34,15 @@ public:
 
     Camera* camera;
     Cube* cube;
+    Lighting* lighting;
+    Material* material;
 
     virtual void init(float width, float height) {};
     virtual void draw() {};
     virtual void done() {};
+
+    bool depthtest;
+    bool backface;
+
+    std::string name;
 };

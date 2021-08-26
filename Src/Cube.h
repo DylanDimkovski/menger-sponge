@@ -7,6 +7,7 @@
 // RMIT University, COSC1226: Real-Time Rendering and 3D Game Programming
 //-----------------------------------------------------------------------------
 #pragma once
+#include "Material.h"
 #include <vector>
 #include <glad/glad.h>
 #include <glm/ext.hpp>
@@ -32,4 +33,8 @@ protected:
     void selectColor(glm::vec3 normal);
     void generate_cube(GLfloat e, glm::vec3 parent, glm::vec3 child);
     void generate_sponge(GLfloat depth, GLfloat e, glm::vec3 pos);
+
+    Material ruby;
+    Material turquoise;
+    Material emerald;
 };

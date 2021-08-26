@@ -1,11 +1,25 @@
 #include "Cube.h"
-#include <iostream>
 
 Cube::Cube(float depth, float size)
 {
 	this->count = 0;
 	this->depth = depth;
 	this->size = size;
+
+	ruby.mat_ambient = { 0.1745f, 0.01175f, 0.01175f, 0.55f };
+	ruby.mat_diffuse = { 0.61424f, 0.04136f, 0.04136f, 0.55f };
+	ruby.mat_specular = { 0.727811f, 0.626959f, 0.626959f, 0.55f };
+	ruby.shine = { 76.8f };
+
+	emerald.mat_ambient = { 0.0215f, 0.1745f, 0.0215f, 0.55f };
+	emerald.mat_diffuse = { 0.07568f, 0.61424f, 0.07568f, 0.55f };
+	emerald.mat_specular = { 0.633f, 0.727811f, 0.633f, 0.55f };
+	emerald.shine = { 76.8f };
+
+	turquoise.mat_ambient = { 0.1f, 0.18725f, 0.1745f, 0.8f };
+	turquoise.mat_diffuse = { 0.396f, 0.74151f, 0.69102f, 0.8f };
+	turquoise.mat_specular = { 0.297254f, 0.30829f, 0.306678f, 0.8f };
+	turquoise.shine = { 12.8f };
 }
 
 void Cube::init()
@@ -52,15 +66,21 @@ void Cube::selectColor(glm::vec3 normal)
 {
 	if (normal.x != 0)
 	{
+		//Red
 		glColor3f(1.0f, 0.0f, 0.0f);
+		ruby.apply_material();
 	}
 	else if (normal.y != 0)
 	{
+		//Green
 		glColor3f(0.0f, 1.0f, 0.0f);
+		emerald.apply_material();
 	}
 	else if (normal.z != 0)
 	{
+		//Blue
 		glColor3f(0.0f, 0.0f, 1.0f);
+		turquoise.apply_material();
 	}
 }
 
