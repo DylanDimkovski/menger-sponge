@@ -14,7 +14,23 @@
 class Scene
 {
 public:
-    virtual void init() = 0;
-    virtual void draw() = 0;
-    virtual void done() = 0;
+
+    Scene() 
+    {
+        camera = new Camera();
+        cube = new Cube(1, 5);
+    }
+
+    ~Scene()
+    {
+        delete camera;
+        delete cube;
+    }
+
+    Camera* camera;
+    Cube* cube;
+
+    virtual void init(float width, float height) {};
+    virtual void draw() {};
+    virtual void done() {};
 };

@@ -5,12 +5,8 @@
 class SceneOne : public Scene
 {
 public:
-    void init();
+    void init(float width, float height);
     void draw();
     void done();
-
-protected:
-    Camera camera;
-    Cube cube;
 };
 

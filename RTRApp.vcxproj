@@ -33,6 +33,9 @@
     <ClInclude Include="Src\Scene.h" />
     <ClInclude Include="Src\SceneOne.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\A1_SUSAU_ARONE\.gitignore" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

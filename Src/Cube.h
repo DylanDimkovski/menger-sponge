@@ -15,15 +15,21 @@
 class Cube
 {
 public:
-    void init(GLfloat depth, GLfloat e);
+
+    Cube(float depth, float size);
+
+    void init();
     void draw();
     void done();
 
     std::vector<glm::vec3> vertex;
     std::vector<int> index;
     float count;
+    float depth;
+    float size;
 
 protected:
+    void selectColor(glm::vec3 normal);
     void generate_cube(GLfloat e, glm::vec3 parent, glm::vec3 child);
     void generate_sponge(GLfloat depth, GLfloat e, glm::vec3 pos);
 };

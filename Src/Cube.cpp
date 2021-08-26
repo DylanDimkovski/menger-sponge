@@ -1,36 +1,72 @@
 #include "Cube.h"
+#include <iostream>
 
-void Cube::init(GLfloat depth, GLfloat e)
+Cube::Cube(float depth, float size)
 {
-	count = 0.0f;
-	generate_sponge(depth, e, glm::vec3(0.0f, 0.0f, 0.0f));
+	this->count = 0;
+	this->depth = depth;
+	this->size = size;
+}
+
+void Cube::init()
+{
+	generate_sponge(depth, size, glm::vec3(0.0f, 0.0f, 0.0f));
 }
 
 void Cube::draw()
 {
+	glPushMatrix();
 	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 0.0f, 0.0f);
 
-	for (int i = 0; i < vertex.size(); i += 3)
+	for (size_t i = 0; i < index.size(); i += 3)
 	{
-		glVertex3fv(glm::value_ptr(vertex.at(index.at(i))));
-		glVertex3fv(glm::value_ptr(vertex.at(index.at(i + 1))));
-		glVertex3fv(glm::value_ptr(vertex.at(index.at(i + 2))));
+		glm::vec3 p1 = vertex.at(index.at(i));
+		glm::vec3 p2 = vertex.at(index.at(i + 1));
+		glm::vec3 p3 = vertex.at(index.at(i + 2));
+
+		glm::vec3 v1 = p1 - p3;
+		glm::vec3 v2 = p2 - p3;
+
+		glm::vec3 normal = glm::normalize(glm::cross(v1, v2));
+		glNormal3fv(glm::value_ptr(normal));
+		
+		selectColor(normal);
+
+		glVertex3fv(glm::value_ptr(p1));
+		glVertex3fv(glm::value_ptr(p2));
+		glVertex3fv(glm::value_ptr(p3));
 	}
 
 	glEnd();
+	glPopMatrix();
 }
 
-void::Cube::done()
+void Cube::done()
 {
 	vertex.clear();
 	index.clear();
 	count = 0.0f;
 }
 
-void::Cube::generate_sponge(GLfloat depth, GLfloat e, glm::vec3 parent)
+void Cube::selectColor(glm::vec3 normal)
 {
-	if (depth == 0 && vertex.empty())
+	if (normal.x != 0)
+	{
+		glColor3f(1.0f, 0.0f, 0.0f);
+	}
+	else if (normal.y != 0)
+	{
+		glColor3f(0.0f, 1.0f, 0.0f);
+	}
+	else if (normal.z != 0)
+	{
+		glColor3f(0.0f, 0.0f, 1.0f);
+	}
+}
+
+void Cube::generate_sponge(GLfloat d, GLfloat e, glm::vec3 parent)
+{
+	if (d == 0 && vertex.empty())
 	{
 		generate_cube(e, parent, glm::vec3(0, 0, 0));
 		return;
@@ -47,13 +83,13 @@ void::Cube::generate_sponge(GLfloat depth, GLfloat e, glm::vec3 parent)
 					float subSize = 1.0f / 3.0f * e;
 					glm::vec3 child = glm::vec3(x, y, z) * subSize + parent;
 
-					if (depth == 1)
+					if (d == 1)
 					{
-						generate_cube(subSize, child, parent);
+						generate_cube(subSize, parent, child);
 					}
 					else
 					{
-						generate_sponge(depth - 1, subSize, child);
+						generate_sponge(d - 1, subSize, child);
 					}
 				}
 			}
@@ -63,83 +99,81 @@ void::Cube::generate_sponge(GLfloat depth, GLfloat e, glm::vec3 parent)
 
 void Cube::generate_cube(GLfloat e, glm::vec3 parent, glm::vec3 child)
 {
-	GLfloat new_vertex = e;
-
+	GLfloat new_vertex = e / 2.0f;
 	int current = count * 8.0f;
-	count++;
-
-	glm::vec3 pos = child * e + parent;
-	new_vertex /= 2.0f;
-
+	
 	vertex.insert(vertex.end(), {
-		pos + glm::vec3(new_vertex, new_vertex, new_vertex), // north east top vertex
-		pos + glm::vec3(new_vertex, -new_vertex, new_vertex), // south east top vertex
-		pos + glm::vec3(-new_vertex, new_vertex, new_vertex), // north west top vertex
-		pos + glm::vec3(-new_vertex, -new_vertex, new_vertex), // south west top vertex
-		pos + glm::vec3(new_vertex, new_vertex, -new_vertex), // north east bottom vertex
-		pos + glm::vec3(new_vertex, -new_vertex, -new_vertex), // south east bottom vertex
-		pos + glm::vec3(-new_vertex, new_vertex, -new_vertex), // north west bottom vertex
-		pos + glm::vec3(-new_vertex, -new_vertex, -new_vertex), // south west bottom vertex
-		});
+		child + glm::vec3(new_vertex, new_vertex, new_vertex),
+		child + glm::vec3(-new_vertex, new_vertex, new_vertex),
+		child + glm::vec3(-new_vertex, -new_vertex, new_vertex),
+		child + glm::vec3(new_vertex, -new_vertex, new_vertex),
+
+		child + glm::vec3(new_vertex, new_vertex, -new_vertex),
+		child + glm::vec3(-new_vertex, new_vertex, -new_vertex),
+		child + glm::vec3(-new_vertex, -new_vertex, -new_vertex),
+		child + glm::vec3(new_vertex, -new_vertex, -new_vertex),
+	});
 
 	//Front Face
 	index.insert(index.end(), {
-		current + 0,
 		current + 1,
 		current + 2,
-		current + 0,
 		current + 3,
-		current + 2,
-		});
+		current + 3,
+		current + 0,
+		current + 1,
+	});
 
 	//Back Face
 	index.insert(index.end(), {
 		current + 5,
-		current + 6,
-		current + 7,
-		current + 5,
 		current + 4,
 		current + 7,
-		});
+		current + 7,
+		current + 6,
+		current + 5,
+	});
 
 	//Left Face
 	index.insert(index.end(), {
 		current + 1,
+		current + 5,
 		current + 6,
-		current + 7,
-		current + 1,
+		current + 6,
 		current + 2,
-		current + 7,
-		});
+		current + 1,
+	});
 
 	//Right Face
 	index.insert(index.end(), {
-		current + 5,
 		current + 0,
 		current + 3,
-		current + 5,
+		current + 7,
+		current + 7,
 		current + 4,
-		current + 3,
-		});
+		current + 0,
+	});
 
 	//Top Face
 	index.insert(index.end(), {
-		current + 0,
-		current + 5,
-		current + 6,
-		current + 0,
 		current + 1,
-		current + 6,
-		});
+		current + 0,
+		current + 4,
+		current + 4,
+		current + 5,
+		current + 1,
+	});
 
 	//Bottom Face
 	index.insert(index.end(), {
 		current + 3,
-		current + 4,
+		current + 2,
+		current + 6,
+		current + 6,
 		current + 7,
 		current + 3,
-		current + 2,
-		current + 7,
-		});
+	});
+
+	count++;
 }
 
