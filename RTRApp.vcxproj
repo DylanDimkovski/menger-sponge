@@ -34,7 +34,7 @@
     <ClInclude Include="Src\SceneOne.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\A1_SUSAU_ARONE\.gitignore" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
