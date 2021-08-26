@@ -12,6 +12,7 @@
 .vs/**
 
 # Build results
+Build/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/

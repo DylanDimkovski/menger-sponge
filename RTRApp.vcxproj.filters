@@ -52,6 +52,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\A1_SUSAU_ARONE\.gitignore" />
+    <None Include=".gitignore" />
   </ItemGroup>
 </Project>
