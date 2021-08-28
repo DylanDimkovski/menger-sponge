@@ -6,19 +6,19 @@ Cube::Cube(float depth, float size)
 	this->depth = depth;
 	this->size = size;
 
-	ruby.mat_ambient = { 0.1745f, 0.01175f, 0.01175f, 0.55f };
-	ruby.mat_diffuse = { 0.61424f, 0.04136f, 0.04136f, 0.55f };
-	ruby.mat_specular = { 0.727811f, 0.626959f, 0.626959f, 0.55f };
+	ruby.mat_ambient = { 0.1745f, 0.01175f, 0.01175f, 1.0f };
+	ruby.mat_diffuse = { 0.61424f, 0.04136f, 0.04136f, 1.0f };
+	ruby.mat_specular = { 0.727811f, 0.626959f, 0.626959f, 1.0f };
 	ruby.shine = { 76.8f };
 
-	emerald.mat_ambient = { 0.0215f, 0.1745f, 0.0215f, 0.55f };
-	emerald.mat_diffuse = { 0.07568f, 0.61424f, 0.07568f, 0.55f };
-	emerald.mat_specular = { 0.633f, 0.727811f, 0.633f, 0.55f };
+	emerald.mat_ambient = { 0.0215f, 0.1745f, 0.0215f, 1.0f };
+	emerald.mat_diffuse = { 0.07568f, 0.61424f, 0.07568f, 1.0f };
+	emerald.mat_specular = { 0.633f, 0.727811f, 0.633f, 1.0f };
 	emerald.shine = { 76.8f };
 
-	turquoise.mat_ambient = { 0.1f, 0.18725f, 0.1745f, 0.8f };
-	turquoise.mat_diffuse = { 0.396f, 0.2f, 0.85f, 0.8f };
-	turquoise.mat_specular = { 0.297254f, 0.30829f, 0.306678f, 0.8f };
+	turquoise.mat_ambient = { 0.1f, 0.18725f, 0.1745f, 1.0f };
+	turquoise.mat_diffuse = { 0.396f, 0.2f, 0.85f, 1.0f };
+	turquoise.mat_specular = { 0.297254f, 0.30829f, 0.306678f, 1.0f };
 	turquoise.shine = { 12.8f };
 }
 
