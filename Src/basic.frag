@@ -35,13 +35,13 @@ void calculate_directional(Material material)
     vec4 ambient = directional.ambient * material.ambient;
 
     // diffuse;
-    float diff = max(dot(fs_in.normal, cam_dir), 0.0);
-    vec4 diffuse = directional.diffuse * diff * material.diffuse;
+    float diff = max(dot(fs_in.normal, -cam_dir), 1.0);
+    vec4 diffuse = directional.diffuse * (diff * material.diffuse);
 
     // specular
     vec3 halfwayDir = -cam_dir;   
     float spec = pow(max(dot(fs_in.normal, halfwayDir), 0.0), material.shininess);
-    vec4 specular = directional.specular * spec * material.specular;
+    vec4 specular = directional.specular * (spec * material.specular);
 
     // Output
     FragColor += ambient + diffuse + specular;
@@ -49,23 +49,24 @@ void calculate_directional(Material material)
 
 void calculate_postional(Material material)
 {
-    for(int i = 1; i < lights.length(); i ++)
+    for(int i = 1; i < lights.length(); i++)
     {
         Lighting light = lights[i];
 
         // ambient
-        vec4 ambient = light.ambient * material.ambient;
+        //vec4 ambient = light.ambient * material.ambient;
+        vec4 ambient = vec4(0.2, 0.2, 0.2, 1.0);
         vec3 light_dir = normalize(vec3(light.position) - fs_in.position);
 
         // diffuse;
         float diff = max(dot(fs_in.normal, light_dir), 0.0);
-        vec4 diffuse = light.diffuse * diff * material.diffuse;
+        vec4 diffuse = light.diffuse * (diff * material.diffuse);
 
         // specular
         vec3 view_dir = normalize(cam_pos - fs_in.position);
         vec3 halfwayDir = normalize(light_dir + view_dir);   
         float spec = pow(max(dot(fs_in.normal, halfwayDir), 0.0), material.shininess);
-        vec4 specular = light.specular * spec * material.specular;
+        vec4 specular = light.specular * (spec * material.specular);
         
         // Output
         FragColor += ambient + diffuse + specular;
@@ -88,5 +89,5 @@ void main()
 		material = blue;
     }
     calculate_directional(material);
-    calculate_postional(material);
+    //calculate_postional(material);
 }

@@ -37,7 +37,7 @@ void SceneTwo::draw()
 	shader->setVec4("green.specular", cube->emerald.mat_specular);
 	shader->setFloat("green.shininess", cube->emerald.shine);
 
-	shader->setVec3("blue.ambient", cube->turquoise.mat_ambient);
+	shader->setVec4("blue.ambient", cube->turquoise.mat_ambient);
 	shader->setVec4("blue.diffuse", cube->turquoise.mat_diffuse);
 	shader->setVec4("blue.specular", cube->turquoise.mat_specular);
 	shader->setFloat("blue.shininess", cube->turquoise.shine);
@@ -46,7 +46,7 @@ void SceneTwo::draw()
 	for (int i = 0; i < 8; i++)
 	{
 		index = std::to_string(i);
-		shader->setVec3("lights[" + index + "].ambient", lights.at(i).light_ambient);
+		shader->setVec4("lights[" + index + "].ambient", lights.at(i).light_ambient);
 		shader->setVec4("lights[" + index + "].diffuse", lights.at(i).light_diffuse);
 		shader->setVec4("lights[" + index + "].specular", lights.at(i).light_specular);
 		if (i == 0)
