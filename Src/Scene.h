@@ -9,10 +9,9 @@
 #include "Camera.h"
 #include "Cube.h"
 #include "Lighting.h"
-#include "Material.h"
 #include <glm/ext.hpp>
 #include <glad/glad.h>
-#include <iostream>
+#include <vector>
 
 class Scene
 {
@@ -22,8 +21,9 @@ public:
     {
         camera = new Camera();
         cube = new Cube(1, 5);
-        lighting = new Lighting();
-        material = new Material();
+        depthtest = true;
+        backface = true;
+        lighting = true;
     }
 
     ~Scene()
@@ -34,15 +34,20 @@ public:
 
     Camera* camera;
     Cube* cube;
-    Lighting* lighting;
-    Material* material;
 
     virtual void init(float width, float height) {};
     virtual void draw() {};
     virtual void done() {};
+    virtual void setup_lighting() {};
+    virtual void setup_vertex() {};
 
     bool depthtest;
     bool backface;
+    bool lighting;
 
-    std::string name;
+    int num_of_lights = 8;
+
+    int name;
+    std::vector<Lighting> lights;
+    std::vector<glm::vec4> position;
 };

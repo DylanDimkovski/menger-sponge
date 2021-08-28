@@ -27,18 +27,27 @@
     <ClCompile Include="Src\RTRApp.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\SceneOne.cpp" />
+    <ClCompile Include="Src\SceneTwo.cpp" />
+    <ClCompile Include="Src\Shader.cpp" />
+    <ClCompile Include="Src\ModernScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Camera.h" />
     <ClInclude Include="Src\Cube.h" />
     <ClInclude Include="Src\Lighting.h" />
     <ClInclude Include="Src\Material.h" />
+    <ClInclude Include="Src\ModernScene.h" />
     <ClInclude Include="Src\RTRApp.h" />
     <ClInclude Include="Src\Scene.h" />
     <ClInclude Include="Src\SceneOne.h" />
+    <ClInclude Include="Src\SceneTwo.h" />
+    <ClInclude Include="Src\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="Src\basic.frag" />
+    <None Include="Src\basic.geom" />
+    <None Include="Src\basic.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

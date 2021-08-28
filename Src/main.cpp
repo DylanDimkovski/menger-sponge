@@ -7,6 +7,7 @@
 //-----------------------------------------------------------------------------
 #include "RTRApp.h"
 #include "SceneOne.h"
+#include "SceneTwo.h"
 
 #define GLT_IMPLEMENTATION
 #include <gltext/gltext.h>
@@ -15,7 +16,7 @@
 class AssignmentApp : public RTRApp
 {
 public:
-    AssignmentApp(const char* title, bool fullscreen = false, int width = 2560, int height = 1440)
+    AssignmentApp(const char* title, bool fullscreen = false, int width = 1000, int height = 600)
         : RTRApp(title, fullscreen, width, height) {}
     int Init();
     void Done();
@@ -23,8 +24,16 @@ public:
 
 private:
     bool m_QuitApp = false;
-    Scene* scene = new SceneOne();
+    bool full_mode = true;
 
+    Scene* scene = new SceneOne();
+    std::vector<std::string> text_to_draw;
+
+    Uint64 starttime = 0;
+    Uint64 endtime = 0;
+    float elapsed = 0;
+    int frames = 0;
+    float fps = 0;
 
     void CheckInput(unsigned int td_milli);
     void UpdateState(unsigned int td_milli);
@@ -85,6 +94,7 @@ void AssignmentApp::CheckInput(unsigned int td_milli)
                     scene->cube->depth--;
                     scene->cube->done();
                     scene->cube->init();
+                    scene->setup_vertex();
                 }
             }
             if (sym == SDLK_EQUALS) {
@@ -93,13 +103,58 @@ void AssignmentApp::CheckInput(unsigned int td_milli)
                     scene->cube->depth++;
                     scene->cube->done();
                     scene->cube->init();
+                    scene->setup_vertex();
                 }
             }
+
+            if (sym == SDLK_COMMA) {
+                if (scene->num_of_lights > 1)
+                {
+                    scene->num_of_lights--;
+                    static_cast<SceneOne*>(scene)->turn_off(scene->lights.at(scene->num_of_lights).light_num);
+                }
+            }
+            if (sym == SDLK_PERIOD) {
+                if (scene->num_of_lights < 7)
+                {
+                    scene->num_of_lights++;
+                    static_cast<SceneOne*>(scene)->turn_on(scene->lights.at(scene->num_of_lights).light_num);
+                }
+            }
+
+            if (sym == SDLK_l) {
+                scene->lighting = !scene->lighting;
+                (scene->lighting) ? glEnable(GL_LIGHTING) : glDisable(GL_LIGHTING);
+            }
+
+            if (sym == SDLK_h) {
+                full_mode = !full_mode;
+            }
+
             if (sym == SDLK_z) {
                 scene->depthtest = !scene->depthtest;
+                (scene->depthtest) ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
             }
             if (sym == SDLK_c) {
                 scene->backface = !scene->backface;
+                (scene->backface) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
+
+                if (scene->backface)
+                {
+                    glCullFace(GL_BACK);
+                }
+            }
+
+            if (sym == SDLK_1) {
+                scene->done();
+                scene = new SceneOne();
+                scene->init((float)m_WindowWidth, (float)m_WindowHeight);
+            }
+
+            if (sym == SDLK_2) {
+                scene->done();
+                scene = new SceneTwo();
+                scene->init((float)m_WindowWidth, (float)m_WindowHeight);
             }
         }
     }
@@ -109,50 +164,49 @@ void AssignmentApp::CheckInput(unsigned int td_milli)
 
 void AssignmentApp::UpdateState(unsigned int td_milli)
 {
-    // This is where we will do all our model updating, physics, etc...
 }
 
 // Render On-Screen Display
 void AssignmentApp::RenderOSD()
 {
-    GLTtext* text = gltCreateText();
-    gltBeginDraw();
-    gltColor(0.0f, 1.0f, 0.0f, 1.0f);
+    if (full_mode) 
+    {
+        text_to_draw.push_back("Scene: " + std::to_string(scene->name));
+        text_to_draw.push_back("Display: " + std::to_string(m_WindowWidth) + 'x' + std::to_string(m_WindowHeight) + " at 144hz");
+        text_to_draw.push_back("FPS: " + std::to_string((int)(fps)));
+        text_to_draw.push_back("Subdivisions: " + std::to_string((int)scene->cube->depth));
+        text_to_draw.push_back("Vertices: " + std::to_string(scene->cube->vertex.size()));
+        text_to_draw.push_back("Faces:" + std::to_string((int)pow(20, scene->cube->depth) * 6));
+        text_to_draw.push_back("Data: " + std::to_string(scene->cube->vertex.size() * sizeof(glm::vec3)) + " bytes");
+        text_to_draw.push_back((scene->lighting) ? "Lighting: On" : "Lighting: Off");
+        text_to_draw.push_back((scene->depthtest) ? "Depth Testing: On" : "Depth Testing: Off");
+        text_to_draw.push_back((scene->backface) ? "Backface Culling: On" : "Backface Culling: Off");
 
-    gltSetText(text, ("Scene: " + scene->name).c_str());
-    gltDrawText2D(text, 10, 0, 2.0);
+        for (int i = 0; i < 10; i++)
+        {
+            GLTtext* text = gltCreateText();
+            gltBeginDraw();
+            gltColor(0.0f, 1.0f, 0.0f, 1.0f);
+            gltSetText(text, text_to_draw.at(i).c_str());
+            gltDrawText2D(text, 10, (50 * i), 2.0);
+            gltEndDraw();
+            gltDeleteText(text);
+        }
 
-    gltSetText(text, ("Display: " + std::to_string((float)m_WindowWidth) + 'x' + std::to_string(m_WindowHeight)).c_str());
-    gltDrawText2D(text, 10, 50, 1.8);
-
-    gltSetText(text, "FPS: 0");
-    gltDrawText2D(text, 10, 100, 2.0);
-
-    gltSetText(text, ("Subdivisions: " + std::to_string((int)scene->cube->depth)).c_str());
-    gltDrawText2D(text, 10, 150, 2.0);
-
-    gltSetText(text, ("Vertices: " + std::to_string(scene->cube->vertex.size())).c_str());
-    gltDrawText2D(text, 10, 200, 2.0);
-
-    gltSetText(text, ("Faces:" + std::to_string(pow(20,scene->cube->depth) * 6)).c_str());
-    gltDrawText2D(text, 10, 250, 2.0);
-
-    gltSetText(text, "Data:");
-    gltDrawText2D(text, 10, 300, 2.0);
-
-    gltSetText(text, "Lighting:");
-    gltDrawText2D(text, 10, 350, 2.0);
-
-    (scene->depthtest) ? gltSetText(text, "Depth Testing: On") : gltSetText(text, "Depth Testing: Off");
-    gltDrawText2D(text, 10, 400, 2.0);
-
-    (scene->backface) ? gltSetText(text, "Backface Culling: On") : gltSetText(text, "Backface Culling: Off");
-    gltDrawText2D(text, 10, 450, 2.0);
-
-    gltEndDraw();
-    gltDeleteText(text);
-
-    glUseProgram(0);
+        text_to_draw.clear();
+        glUseProgram(0);
+    }
+    else 
+    {
+        GLTtext* text = gltCreateText();
+        gltBeginDraw();
+        gltColor(0.0f, 1.0f, 0.0f, 1.0f);
+        gltSetText(text, ("FPS: " + std::to_string((int)(fps))).c_str());
+        gltDrawText2D(text, 10, 0, 2.0);
+        gltEndDraw();
+        gltDeleteText(text);
+        glUseProgram(0);
+    }
 }
 
 void AssignmentApp::RenderFrame()
@@ -161,8 +215,19 @@ void AssignmentApp::RenderFrame()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     scene->draw();
-
     RenderOSD();
+
+    frames++;
+    if (frames > 100)
+    {
+        endtime = SDL_GetTicks();
+        elapsed = (endtime - starttime) / 1000.0f;
+
+        fps = frames / elapsed;
+
+        starttime = SDL_GetTicks();
+        frames = 0;
+    }
 
     SDL_GL_SwapWindow(m_SDLWindow);
 }
@@ -178,6 +243,8 @@ int AssignmentApp::Init()
 
     gltInit();
     scene->init((float) m_WindowWidth, (float) m_WindowHeight);
+
+    starttime = SDL_GetTicks();
 
     return 0;
 }

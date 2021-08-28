@@ -11,15 +11,6 @@ void Camera::init(float width, float height)
 	updateView();
 }
 
-void Camera::draw()
-{
-
-}
-
-void Camera::done()
-{
-
-}
 
 void Camera::mouseMove()
 {

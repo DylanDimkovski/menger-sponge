@@ -15,12 +15,9 @@ class Camera
 {
 public:
     void init(float width, float height);
-    void draw();
-    void done();
 
     void updateProjection();
     void updateView();
-
     void mouseMove();
 
     float width = 0;

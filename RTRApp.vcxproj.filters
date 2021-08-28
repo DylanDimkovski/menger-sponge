@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{83de00fc-90c9-4f45-ab50-d8c2bb8994ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\RTRApp.cpp">
@@ -39,6 +42,15 @@
     <ClCompile Include="Src\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SceneTwo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ModernScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\RTRApp.h">
@@ -62,8 +74,26 @@
     <ClInclude Include="Src\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\ModernScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SceneTwo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="Src\basic.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Src\basic.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Src\basic.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

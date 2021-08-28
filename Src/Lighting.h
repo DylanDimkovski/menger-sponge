@@ -4,10 +4,16 @@
 class Lighting 
 {
 public:
-	void init(Camera* camera);
-	void draw();
-	void done();
-	void update_forward(Camera* camera);
-protected:
+	Lighting();
 
+	glm::vec4 light_ambient;
+	glm::vec4 light_diffuse;
+	glm::vec4 light_specular;
+	glm::vec4 light_position;
+
+	GLfloat const_attenuation;
+	GLfloat linear_attenuation;
+	GLfloat quadratic_attenuation;
+
+	int light_num;
 };

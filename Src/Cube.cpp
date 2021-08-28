@@ -17,7 +17,7 @@ Cube::Cube(float depth, float size)
 	emerald.shine = { 76.8f };
 
 	turquoise.mat_ambient = { 0.1f, 0.18725f, 0.1745f, 0.8f };
-	turquoise.mat_diffuse = { 0.396f, 0.74151f, 0.69102f, 0.8f };
+	turquoise.mat_diffuse = { 0.396f, 0.2f, 0.85f, 0.8f };
 	turquoise.mat_specular = { 0.297254f, 0.30829f, 0.306678f, 0.8f };
 	turquoise.shine = { 12.8f };
 }

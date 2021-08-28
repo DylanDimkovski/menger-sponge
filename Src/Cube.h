@@ -29,12 +29,12 @@ public:
     float depth;
     float size;
 
+    Material ruby;
+    Material turquoise;
+    Material emerald;
+
 protected:
     void selectColor(glm::vec3 normal);
     void generate_cube(GLfloat e, glm::vec3 parent, glm::vec3 child);
     void generate_sponge(GLfloat depth, GLfloat e, glm::vec3 pos);
-
-    Material ruby;
-    Material turquoise;
-    Material emerald;
 };
