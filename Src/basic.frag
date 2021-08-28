@@ -18,9 +18,9 @@ in FS_IN{
     vec3 normal;
 }fs_in;
 
-uniform Material red;
-uniform Material green;
-uniform Material blue;
+in Material red;
+in Material green;
+in Material blue;
 uniform vec3 cam_pos;
 uniform vec3 cam_dir;
 uniform Lighting lights[8];
@@ -35,11 +35,11 @@ void calculate_directional(Material material)
     vec4 ambient = directional.ambient * material.ambient;
 
     // diffuse;
-    float diff = max(dot(fs_in.normal, -cam_dir), 1.0);
+    float diff = max(dot(fs_in.normal, -cam_dir), 0.0);
     vec4 diffuse = directional.diffuse * (diff * material.diffuse);
 
     // specular
-    vec3 halfwayDir = -cam_dir;   
+    vec3 halfwayDir = normalize(-cam_dir);   
     float spec = pow(max(dot(fs_in.normal, halfwayDir), 0.0), material.shininess);
     vec4 specular = directional.specular * (spec * material.specular);
 
@@ -86,8 +86,8 @@ void main()
     }
     else if(fs_in.normal.z != 0)
     {
-		material = blue;
+        material = blue;
     }
-    calculate_directional(material);
+    calculate_directional(red);
     //calculate_postional(material);
 }

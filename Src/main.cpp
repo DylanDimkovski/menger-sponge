@@ -147,12 +147,14 @@ void AssignmentApp::CheckInput(unsigned int td_milli)
 
             if (sym == SDLK_1) {
                 scene->done();
+                delete scene;
                 scene = new SceneOne();
                 scene->init((float)m_WindowWidth, (float)m_WindowHeight);
             }
 
             if (sym == SDLK_2) {
                 scene->done();
+                delete scene;
                 scene = new SceneTwo();
                 scene->init((float)m_WindowWidth, (float)m_WindowHeight);
             }
