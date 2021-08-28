@@ -1,13 +1,13 @@
 #version 400 core
 struct Material {
-    vec3 ambient;
+    vec4 ambient;
     vec4 diffuse;
     vec4 specular;
     float shininess;
 }; 
 
 struct Lighting{
-    vec3 ambient;
+    vec4 ambient;
 	vec4 diffuse;
 	vec4 specular;
 	vec4 position;
@@ -32,7 +32,7 @@ void calculate_directional(Material material)
     Lighting directional = lights[0];
 
     // ambient
-    vec4 ambient = directional.diffuse * material.diffuse;
+    vec4 ambient = directional.ambient * material.ambient;
 
     // diffuse;
     float diff = max(dot(fs_in.normal, cam_dir), 0.0);
@@ -54,7 +54,7 @@ void calculate_postional(Material material)
         Lighting light = lights[i];
 
         // ambient
-        vec4 ambient = light.diffuse * material.diffuse;
+        vec4 ambient = light.ambient * material.ambient;
         vec3 light_dir = normalize(vec3(light.position) - fs_in.position);
 
         // diffuse;
