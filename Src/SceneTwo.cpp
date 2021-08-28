@@ -5,10 +5,9 @@ void SceneTwo::init(float width, float height)
 	name = 2;
 	camera->init(width, height);
 	cube->init();
-	shader->init("D:/Uni Work/RealTimeGraphics/A1_SURNAME_FIRSTNAME/menger-sponge/Src/basic.vert", "D:/Uni Work/RealTimeGraphics/A1_SURNAME_FIRSTNAME/menger-sponge/Src/basic.frag", "D:/Uni Work/RealTimeGraphics/A1_SURNAME_FIRSTNAME/menger-sponge/Src/basic.geom");
 	setup_vertex();
 	setup_lighting();
-
+	shader->init("D:/Uni Work/RealTimeGraphics/A1_SURNAME_FIRSTNAME/menger-sponge/Src/basic.vert", "D:/Uni Work/RealTimeGraphics/A1_SURNAME_FIRSTNAME/menger-sponge/Src/basic.frag", "D:/Uni Work/RealTimeGraphics/A1_SURNAME_FIRSTNAME/menger-sponge/Src/basic.geom");
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 }
@@ -19,6 +18,9 @@ void SceneTwo::draw()
 	camera->updateView();
 
 	shader->use();
+
+	shader->setInt("num_of_lights", num_of_lights);
+	shader->setBool("light_on", lighting);
 
 	shader->setMat4("projection", camera->projection);
 	shader->setMat4("model", glm::mat4(1.0));
@@ -43,7 +45,8 @@ void SceneTwo::draw()
 	shader->setFloat("blue.shininess", cube->turquoise.shine);
 
 	std::string index;
-	for (int i = 0; i < 8; i++)
+
+	for (int i = 0; i < num_of_lights; i++)
 	{
 		index = std::to_string(i);
 		shader->setVec4("lights[" + index + "].ambient", lights.at(i).light_ambient);
@@ -56,6 +59,7 @@ void SceneTwo::draw()
 		else { shader->setVec4("lights[" + index + "].position", lights.at(i).light_position); }
 	}
 
+
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, cube->index.size(), GL_UNSIGNED_INT, 0);
 
@@ -65,6 +69,7 @@ void SceneTwo::draw()
 void SceneTwo::done()
 {
 	cube->done();
+	delete shader;
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 }

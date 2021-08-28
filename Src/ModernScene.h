@@ -16,5 +16,7 @@ protected:
     unsigned int EBO = 0;
 
     Shader* shader = new Shader();
+
+    std::vector<glm::mat4> model;
 };
 

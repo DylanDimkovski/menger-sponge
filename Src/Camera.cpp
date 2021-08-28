@@ -67,3 +67,12 @@ void Camera::updateView()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(glm::value_ptr(view));
 }
+
+void Camera::updateView(glm::mat4 model)
+{
+    view = glm::lookAt(position, position + front, up);
+    view = view * model;
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadMatrixf(glm::value_ptr(view));
+}

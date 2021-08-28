@@ -8,6 +8,7 @@
 #include "RTRApp.h"
 #include "SceneOne.h"
 #include "SceneTwo.h"
+#include "SceneThree.h"
 
 #define GLT_IMPLEMENTATION
 #include <gltext/gltext.h>
@@ -156,6 +157,13 @@ void AssignmentApp::CheckInput(unsigned int td_milli)
                 scene->done();
                 delete scene;
                 scene = new SceneTwo();
+                scene->init((float)m_WindowWidth, (float)m_WindowHeight);
+            }
+
+            if (sym == SDLK_3) {
+                scene->done();
+                delete scene;
+                scene = new SceneThree();
                 scene->init((float)m_WindowWidth, (float)m_WindowHeight);
             }
         }
