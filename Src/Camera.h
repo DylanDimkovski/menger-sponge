@@ -20,6 +20,8 @@ public:
     void updateView();
     void updateView(glm::mat4 model);
     void mouseMove();
+    glm::mat4 getView();
+    glm::mat4 getProjection();
 
     float width = 0;
     float height = 0;

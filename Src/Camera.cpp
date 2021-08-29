@@ -52,6 +52,16 @@ void Camera::mouseMove()
     }
 }
 
+glm::mat4 Camera::getView()
+{
+    return glm::lookAt(position, position + front, up);
+}
+
+glm::mat4 Camera::getProjection()
+{
+    return glm::perspective(glm::radians(60.0f), width / height, 0.01f, 1000.0f);
+}
+
 void Camera::updateProjection()
 {
 	projection = glm::perspective(glm::radians(60.0f), width / height, 0.01f, 1000.0f);

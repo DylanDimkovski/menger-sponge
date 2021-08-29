@@ -7,7 +7,7 @@ uniform mat4 view;
 
 in Vertex{
 	mat4 Model;
-}vs_in[];
+}vertex_in[];
 
 vec3 p1 = vec3(gl_in[0].gl_Position);
 vec3 p2 = vec3(gl_in[1].gl_Position);
@@ -20,9 +20,9 @@ out GS_OUT{
 
 void main()
 {
-    for(int i = 0; i < gl_in.length(); i++)
+    for(int i = 0; i < 3; i++)
     {
-        gl_Position = projection * view * vs_in[i].Model * gl_in[i].gl_Position;
+        gl_Position = projection * view * vertex_in[i].Model * gl_in[i].gl_Position;
         vec3 v1 = p1 - p3;
         vec3 v2 = p2 - p3;
 

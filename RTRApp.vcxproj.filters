@@ -57,6 +57,15 @@
     <ClCompile Include="Src\SceneThree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\SceneFive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Chrono.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SceneSix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\RTRApp.h">
@@ -95,6 +104,15 @@
     <ClInclude Include="Src\SceneFour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\SceneFive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Chrono.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SceneSix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -111,6 +129,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Src\four.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Src\five.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Src\six.geom">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -4,10 +4,10 @@ layout (location = 2) in mat4 model;
 
 out Vertex{
 	mat4 Model;
-}vs_out;
+}vertex;
 
 void main()
 {
 	gl_Position = vec4(aPos, 1.0);
-	vs_out.Model = model;
+	vertex.Model = model;
 }

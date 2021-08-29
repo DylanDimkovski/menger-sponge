@@ -21,12 +21,15 @@
   <ItemGroup>
     <ClCompile Include="Include\glad\glad.c" />
     <ClCompile Include="Src\Camera.cpp" />
+    <ClCompile Include="Src\Chrono.cpp" />
     <ClCompile Include="Src\Cube.cpp" />
     <ClCompile Include="Src\Lighting.cpp" />
     <ClCompile Include="Src\Material.cpp" />
     <ClCompile Include="Src\RTRApp.cpp" />
     <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\SceneFive.cpp" />
     <ClCompile Include="Src\SceneOne.cpp" />
+    <ClCompile Include="Src\SceneSix.cpp" />
     <ClCompile Include="Src\SceneThree.cpp" />
     <ClCompile Include="Src\SceneTwo.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
@@ -35,8 +38,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Camera.h" />
+    <ClInclude Include="Src\Chrono.h" />
     <ClInclude Include="Src\Cube.h" />
+    <ClInclude Include="Src\SceneFive.h" />
     <ClInclude Include="Src\SceneFour.h" />
+    <ClInclude Include="Src\SceneSix.h" />
     <ClInclude Include="Src\SceneThree.h" />
     <ClInclude Include="Src\Lighting.h" />
     <ClInclude Include="Src\Material.h" />
@@ -52,8 +58,10 @@
     <None Include="Src\basic.frag" />
     <None Include="Src\basic.geom" />
     <None Include="Src\basic.vert" />
+    <None Include="Src\five.geom" />
     <None Include="Src\four.geom" />
     <None Include="Src\four.vert" />
+    <None Include="Src\six.geom" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

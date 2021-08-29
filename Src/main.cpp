@@ -10,6 +10,10 @@
 #include "SceneTwo.h"
 #include "SceneThree.h"
 #include "SceneFour.h"
+#include "SceneFive.h"
+#include "SceneSix.h"
+
+#include "Chrono.h"
 
 #define GLT_IMPLEMENTATION
 #include <gltext/gltext.h>
@@ -18,7 +22,7 @@
 class AssignmentApp : public RTRApp
 {
 public:
-    AssignmentApp(const char* title, bool fullscreen = false, int width = 1000, int height = 600)
+    AssignmentApp(const char* title, bool fullscreen = false, int width = 1500, int height = 1000)
         : RTRApp(title, fullscreen, width, height) {}
     int Init();
     void Done();
@@ -27,15 +31,9 @@ public:
 private:
     bool m_QuitApp = false;
     bool full_mode = true;
-
     Scene* scene = new SceneOne();
     std::vector<std::string> text_to_draw;
-
-    Uint64 starttime = 0;
-    Uint64 endtime = 0;
-    float elapsed = 0;
-    int frames = 0;
-    float fps = 0;
+    Chrono* chrono = new Chrono();
 
     void CheckInput(unsigned int td_milli);
     void UpdateState(unsigned int td_milli);
@@ -174,6 +172,20 @@ void AssignmentApp::CheckInput(unsigned int td_milli)
                 scene = new SceneFour();
                 scene->init((float)m_WindowWidth, (float)m_WindowHeight);
             }
+
+            if (sym == SDLK_5) {
+                scene->done();
+                delete scene;
+                scene = new SceneFive(chrono);
+                scene->init((float)m_WindowWidth, (float)m_WindowHeight);
+            }
+
+            if (sym == SDLK_6) {
+                scene->done();
+                delete scene;
+                scene = new SceneSix(chrono);
+                scene->init((float)m_WindowWidth, (float)m_WindowHeight);
+            }
         }
     }
 
@@ -191,7 +203,7 @@ void AssignmentApp::RenderOSD()
     {
         text_to_draw.push_back("Scene: " + std::to_string(scene->name));
         text_to_draw.push_back("Display: " + std::to_string(m_WindowWidth) + 'x' + std::to_string(m_WindowHeight) + " at 144hz");
-        text_to_draw.push_back("FPS: " + std::to_string((int)(fps)));
+        text_to_draw.push_back("FPS: " + std::to_string((int)(chrono->fps)));
         text_to_draw.push_back("Subdivisions: " + std::to_string((int)scene->cube->depth));
         text_to_draw.push_back("Vertices: " + std::to_string(scene->cube->vertex.size()));
         text_to_draw.push_back("Faces:" + std::to_string((int)pow(20, scene->cube->depth) * 6));
@@ -219,7 +231,7 @@ void AssignmentApp::RenderOSD()
         GLTtext* text = gltCreateText();
         gltBeginDraw();
         gltColor(0.0f, 1.0f, 0.0f, 1.0f);
-        gltSetText(text, ("FPS: " + std::to_string((int)(fps))).c_str());
+        gltSetText(text, ("FPS: " + std::to_string((int)(chrono->fps))).c_str());
         gltDrawText2D(text, 10, 0, 2.0);
         gltEndDraw();
         gltDeleteText(text);
@@ -235,17 +247,7 @@ void AssignmentApp::RenderFrame()
     scene->draw();
     RenderOSD();
 
-    frames++;
-    if (frames > 100)
-    {
-        endtime = SDL_GetTicks();
-        elapsed = (endtime - starttime) / 1000.0f;
-
-        fps = frames / elapsed;
-
-        starttime = SDL_GetTicks();
-        frames = 0;
-    }
+    chrono->calculate_delta();
 
     SDL_GL_SwapWindow(m_SDLWindow);
 }
@@ -261,8 +263,6 @@ int AssignmentApp::Init()
 
     gltInit();
     scene->init((float) m_WindowWidth, (float) m_WindowHeight);
-
-    starttime = SDL_GetTicks();
 
     return 0;
 }
