@@ -10,14 +10,20 @@ void SceneThree::init(float width, float height)
 	shader->init("D:/Uni Work/RealTimeGraphics/A1_SURNAME_FIRSTNAME/menger-sponge/Src/basic.vert", "D:/Uni Work/RealTimeGraphics/A1_SURNAME_FIRSTNAME/menger-sponge/Src/basic.frag", "D:/Uni Work/RealTimeGraphics/A1_SURNAME_FIRSTNAME/menger-sponge/Src/basic.geom");
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	
-	setup_transformation();
+
+	for (int i = 0; i < 9; i++)
+	{
+		model.push_back(glm::mat4(1.0));
+	}
+
+	apply_translation();
 }
 
 void SceneThree::draw()
 {
 	for (int i = 0; i < 9; i++)
 	{
+		apply_rotation();
 		camera->updateProjection();
 		camera->updateView(model.at(i));
 
@@ -72,6 +78,7 @@ void SceneThree::draw()
 void SceneThree::done()
 {
 	cube->done();
+	model.clear();
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 }
@@ -93,27 +100,44 @@ void SceneThree::setup_vertex()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * cube->index.size(), &cube->index[0], GL_STATIC_DRAW);
 }
 
-void SceneThree::setup_transformation()
+void SceneThree::apply_translation()
 {
-	for (int i = 0; i < 9; i++)
-	{
-		model.push_back(glm::mat4(1.0));
-	}
-	model.at(0) = glm::translate(model.at(0), glm::vec3(-10.0, 10.0, -20.0)) * glm::rotate(model.at(0), (SDL_GetTicks()/1000.0f) * glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	model.at(0) = glm::translate(model.at(0), glm::vec3(-10.0, 10.0, -20.0));
 
-	model.at(1) = glm::translate(model.at(1), glm::vec3(0.0, 10.0, -20.0)) * glm::rotate(model.at(1), glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	model.at(1) = glm::translate(model.at(1), glm::vec3(0.0, 10.0, -20.0));
 
-	model.at(2) = glm::translate(model.at(2), glm::vec3(10.0, 10.0, -20.0)) * glm::rotate(model.at(2), glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	model.at(2) = glm::translate(model.at(2), glm::vec3(10.0, 10.0, -20.0));
 
-	model.at(3) = glm::translate(model.at(3), glm::vec3(-10.0, 0.0, -20.0)) * glm::rotate(model.at(3), glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	model.at(3) = glm::translate(model.at(3), glm::vec3(-10.0, 0.0, -20.0));
 
-	model.at(4) = glm::translate(model.at(4), glm::vec3(0.0, 0.0, -20.0)) * glm::rotate(model.at(4), glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	model.at(4) = glm::translate(model.at(4), glm::vec3(0.0, 0.0, -20.0));
 
-	model.at(5) = glm::translate(model.at(5), glm::vec3(10.0, 0.0, -20.0)) * glm::rotate(model.at(5), glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	model.at(5) = glm::translate(model.at(5), glm::vec3(10.0, 0.0, -20.0));
 
-	model.at(6) = glm::translate(model.at(6), glm::vec3(-10.0, -10.0, -20.0)) * glm::rotate(model.at(6), glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	model.at(6) = glm::translate(model.at(6), glm::vec3(-10.0, -10.0, -20.0));
 
-	model.at(7) = glm::translate(model.at(7), glm::vec3(0.0, -10.0, -20.0)) * glm::rotate(model.at(7), glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	model.at(7) = glm::translate(model.at(7), glm::vec3(0.0, -10.0, -20.0));
 
-	model.at(8) = glm::translate(model.at(8), glm::vec3(10.0, -10.0, -20.0)) * glm::rotate(model.at(8), glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	model.at(8) = glm::translate(model.at(8), glm::vec3(10.0, -10.0, -20.0));
+}
+
+void SceneThree::apply_rotation()
+{
+	model.at(0) = glm::rotate(model.at(0), glm::radians(0.01f), glm::vec3(1.0, 0.0, 0.0));
+
+	model.at(1) = glm::rotate(model.at(1), glm::radians(0.01f), glm::vec3(0.0, 1.0, 0.0));
+
+	model.at(2) = glm::rotate(model.at(2), glm::radians(0.01f), glm::vec3(0.0, 0.0, 1.0));
+
+	model.at(3) = glm::rotate(model.at(3), glm::radians(0.01f), glm::vec3(1.0, 0.0, 1.0));
+
+	model.at(4) = glm::rotate(model.at(4), glm::radians(0.01f), glm::vec3(1.0, 1.0, 0.0));
+
+	model.at(5) = glm::rotate(model.at(5), glm::radians(0.01f), glm::vec3(0.5, 0.5, 0.5));
+
+	model.at(6) = glm::rotate(model.at(6), glm::radians(0.01f), glm::vec3(0.7, 0.0, 0.2));
+
+	model.at(7) = glm::rotate(model.at(7), glm::radians(0.01f), glm::vec3(0.0, 0.1, 1.0));
+
+	model.at(8) = glm::rotate(model.at(8), glm::radians(0.01f), glm::vec3(0.5, 0.3, 0.8));
 }

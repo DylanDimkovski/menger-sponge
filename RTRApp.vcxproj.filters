@@ -51,7 +51,7 @@
     <ClCompile Include="Src\ModernScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Source.cpp">
+    <ClCompile Include="Src\SceneFour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\SceneThree.cpp">
@@ -92,6 +92,9 @@
     <ClInclude Include="Src\SceneThree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\SceneFour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -102,6 +105,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Src\basic.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Src\four.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Src\four.geom">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

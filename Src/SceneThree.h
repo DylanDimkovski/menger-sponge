@@ -8,5 +8,6 @@ public:
     void draw();
     void done();
     void setup_vertex();
-    void setup_transformation();
+    void apply_translation();
+    void apply_rotation();
 };

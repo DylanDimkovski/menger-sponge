@@ -31,11 +31,12 @@
     <ClCompile Include="Src\SceneTwo.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
     <ClCompile Include="Src\ModernScene.cpp" />
-    <ClCompile Include="Src\Source.cpp" />
+    <ClCompile Include="Src\SceneFour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Camera.h" />
     <ClInclude Include="Src\Cube.h" />
+    <ClInclude Include="Src\SceneFour.h" />
     <ClInclude Include="Src\SceneThree.h" />
     <ClInclude Include="Src\Lighting.h" />
     <ClInclude Include="Src\Material.h" />
@@ -51,6 +52,8 @@
     <None Include="Src\basic.frag" />
     <None Include="Src\basic.geom" />
     <None Include="Src\basic.vert" />
+    <None Include="Src\four.geom" />
+    <None Include="Src\four.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

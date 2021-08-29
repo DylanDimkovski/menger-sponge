@@ -14,6 +14,7 @@ protected:
     unsigned int VBO = 0;
     unsigned int VAO = 0;
     unsigned int EBO = 0;
+    unsigned int model_VBO = 0;
 
     Shader* shader = new Shader();
 
