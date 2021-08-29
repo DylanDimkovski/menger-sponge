@@ -22,7 +22,7 @@
 class AssignmentApp : public RTRApp
 {
 public:
-    AssignmentApp(const char* title, bool fullscreen = false, int width = 1500, int height = 1000)
+    AssignmentApp(const char* title, bool fullscreen = true, int width = 2560, int height = 1440)
         : RTRApp(title, fullscreen, width, height) {}
     int Init();
     void Done();
@@ -202,9 +202,15 @@ void AssignmentApp::RenderOSD()
     if (full_mode) 
     {
         text_to_draw.push_back("Scene: " + std::to_string(scene->name));
-        text_to_draw.push_back("Display: " + std::to_string(m_WindowWidth) + 'x' + std::to_string(m_WindowHeight) + " at 144hz");
+        text_to_draw.push_back("Display: " + std::to_string(m_WindowWidth) + 'x' + std::to_string(m_WindowHeight));
         text_to_draw.push_back("FPS: " + std::to_string((int)(chrono->fps)));
         text_to_draw.push_back("Subdivisions: " + std::to_string((int)scene->cube->depth));
+        if (scene->name == 3 || scene->name == 4)
+        {
+            text_to_draw.push_back("Vertices: " + std::to_string(scene->cube->vertex.size() * 9));
+            text_to_draw.push_back("Faces:" + std::to_string(((int)pow(20, scene->cube->depth) * 6) * 9));
+            text_to_draw.push_back("Data: " + std::to_string(scene->cube->vertex.size() * sizeof(glm::vec3) * 9) + " bytes");
+        }
         text_to_draw.push_back("Vertices: " + std::to_string(scene->cube->vertex.size()));
         text_to_draw.push_back("Faces:" + std::to_string((int)pow(20, scene->cube->depth) * 6));
         text_to_draw.push_back("Data: " + std::to_string(scene->cube->vertex.size() * sizeof(glm::vec3)) + " bytes");
@@ -279,7 +285,7 @@ static const char* MAIN_WINDOW_TITLE = "COSC1226 - Assignment 1";
 
 int main(int argc, char** argv)
 {
-    AssignmentApp* app = new AssignmentApp(MAIN_WINDOW_TITLE, false);
+    AssignmentApp* app = new AssignmentApp(MAIN_WINDOW_TITLE, true);
     if (int err = app->Init() != 0) {
         std::cout << "RTR:ERROR: Failed to initialise application. Please see error messages for details..." << std::endl;
         return -1;

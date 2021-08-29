@@ -98,15 +98,12 @@ glm::vec3 SceneFive::lerp(glm::vec3 begin, glm::vec3 end, float animation)
 
 glm::vec3 SceneFive::calculate_morph(glm::vec3 begin)
 {
-	float d = length(begin);
-	float r = glm::max(glm::max(abs(begin.x), abs(begin.y)), abs(begin.z));
-
-	float theta = acos(begin.z / d);
+	float theta = acos(begin.z / length(begin));
 	float phi = atan2(begin.y, begin.x);
 
-	float fx = r * sin(theta) * cos(phi);
-	float fy = r * sin(theta) * sin(phi);
-	float fz = r * cos(theta);
+	float fx = glm::max(glm::max(abs(begin.x), abs(begin.y)), abs(begin.z)) * sin(theta) * cos(phi);
+	float fy = glm::max(glm::max(abs(begin.x), abs(begin.y)), abs(begin.z)) * sin(theta) * sin(phi);
+	float fz = glm::max(glm::max(abs(begin.x), abs(begin.y)), abs(begin.z)) * cos(theta);
 
 	return glm::vec3(fx, fy, fz);
 }
